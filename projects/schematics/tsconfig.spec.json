@@ -1,0 +1,9 @@
+{
+    "extends": "./tsconfig.json",
+    "compilerOptions": {
+        "outDir": "../../dist/spec/schematics"
+    },
+    "exclude": [
+        "src/**/*/files/**/*"
+    ]
+}

@@ -1,0 +1,15 @@
+{
+    "$schema": "../../../node_modules/@angular-devkit/schematics/collection-schema.json",
+    "schematics": {
+        "ng-add": {
+            "description": "Run ng-add schematic",
+            "factory": "./ng-add/index",
+            "schema": "./ng-add/schema.json"
+        },
+        "app-updater": {
+            "description": "Run app-updater schematic",
+            "factory": "./app-updater/index",
+            "schema": "./app-updater/schema.json"
+        }
+    }
+}

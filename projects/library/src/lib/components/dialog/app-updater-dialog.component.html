@@ -1,0 +1,24 @@
+<h1 mat-dialog-title
+    class="title">
+    {{ options?.dialogConfig?.title || 'Nouvelle version disponible' }}
+</h1>
+
+<mat-dialog-content class="content">
+    {{ options?.dialogConfig?.message ||
+    ((options?.dialogConfig?.matDialogConfig?.disableClose === false) ?
+    'Souhaitez-vous mettre à jour votre application ?' : 'Nous allons mettre à jour votre application.') }}
+</mat-dialog-content>
+
+<mat-dialog-actions [attr.align]="'center'">
+    <ng-container *ngIf="options?.dialogConfig?.matDialogConfig?.disableClose === false">
+        <button mat-button
+                (click)="dialogRef.close(false)">
+            {{ options?.dialogConfig?.cancel || 'ANNULER' }}
+        </button>
+    </ng-container>
+    <button mat-stroked-button
+            color="primary"
+            (click)="dialogRef.close(true)">
+        {{ options?.dialogConfig?.update || 'METTRE À JOUR' }}
+    </button>
+</mat-dialog-actions>

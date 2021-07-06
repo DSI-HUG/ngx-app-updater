@@ -1,0 +1,16 @@
+:host {
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 10px;
+
+    .title {
+        text-align: center;
+    }
+
+    .content {
+        text-align: center;
+        line-height: 28px;
+        margin-top: 12px;
+        margin-bottom: 12px;
+    }
+}

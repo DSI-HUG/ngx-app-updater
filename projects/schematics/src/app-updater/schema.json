@@ -1,0 +1,7 @@
+{
+    "$schema": "http://json-schema.org/schema",
+    "$id": "app-updater",
+    "title": "app-updater schematic",
+    "type": "object",
+    "additionalProperties": false
+}
