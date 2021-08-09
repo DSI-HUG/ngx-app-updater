@@ -4,7 +4,7 @@ import { RouterModule } from '@angular/router';
 import { AppUpdaterModule } from './app-updater.module';
 import { AppUpdaterService } from './services/app-updater.service';
 
-describe('NgxSentryService', () => {
+describe('NgxAppUpdaterService', () => {
     let service: AppUpdaterService;
 
     beforeEach(() => {

@@ -1,7 +1,8 @@
 import { Component, Inject } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 
-import { AppUpdaterConfig, AppUpdaterOptions } from '../../models';
+import { AppUpdaterConfig } from '../../models/app-updater-config.model';
+import { AppUpdaterOptions } from '../../models/app-updater-options.model';
 
 @Component({
     selector: 'app-updater-dialog',

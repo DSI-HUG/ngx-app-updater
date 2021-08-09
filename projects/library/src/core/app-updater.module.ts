@@ -2,7 +2,8 @@ import { APP_INITIALIZER, ModuleWithProviders, NgModule } from '@angular/core';
 import { ServiceWorkerModule, SwRegistrationOptions } from '@angular/service-worker';
 
 import { AppUpdaterDialogModule } from './components/dialog/app-updater-dialog.module';
-import { AppUpdaterConfig, AppUpdaterOptions } from './models';
+import { AppUpdaterConfig } from './models/app-updater-config.model';
+import { AppUpdaterOptions } from './models/app-updater-options.model';
 import { AppUpdaterService } from './services/app-updater.service';
 
 // eslint-disable-next-line prefer-arrow/prefer-arrow-functions

@@ -13,8 +13,11 @@
         "declaration": false,
         "downlevelIteration": true,
         "paths": {
-            "library": [
-                "dist/library"
+            "@hug/ngx-app-updater": [
+                "projects/library/src"
+            ],
+            "@hug/ngx-app-updater/*": [
+                "projects/library/src/*"
             ]
         },
         "experimentalDecorators": true,

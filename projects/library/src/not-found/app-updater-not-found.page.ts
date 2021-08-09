@@ -1,8 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { SwUpdate } from '@angular/service-worker';
+import { AppUpdaterService } from '@hug/ngx-app-updater';
 import { Subscription } from 'rxjs';
-
-import { AppUpdaterService } from '../../services/app-updater.service';
 
 @Component({
     selector: 'app-updater-not-found-page',

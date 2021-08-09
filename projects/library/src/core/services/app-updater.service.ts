@@ -4,7 +4,8 @@ import { SwUpdate } from '@angular/service-worker';
 import { interval, Subscription } from 'rxjs';
 
 import { AppUpdaterDialogComponent } from '../components/dialog/app-updater-dialog.component';
-import { AppUpdaterConfig, AppUpdaterOptions } from '../models';
+import { AppUpdaterConfig } from '../models/app-updater-config.model';
+import { AppUpdaterOptions } from '../models/app-updater-options.model';
 
 @Injectable()
 export class AppUpdaterService implements OnDestroy {
