@@ -3,7 +3,7 @@ import { chain, noop, Rule, Tree } from '@angular-devkit/schematics';
 import { JSONFile } from '@schematics/angular/utility/json-file';
 
 import { addAngularJsonAssets, addImportToNgModule, ensureIsAngularProject, getDefaultProjectName } from '../utility/angular';
-import { addImportToFile, deployFiles, modifyJson } from '../utility/file';
+import { addImportToFile, deployFiles, downloadFile, modifyJson } from '../utility/file';
 import { addPackageJsonDependencies, packageInstallTask } from '../utility/package-json';
 import { schematic } from '../utility/rules';
 
@@ -30,7 +30,15 @@ export default (): Rule =>
             }),
 
             // Deploy icons
-            // TODO: dl from cdn 72, 96, 128, 144, 152, 192, 384, 512
+            (): Rule => {
+                const sizes = ['72', '96', '128', '144', '152', '192', '384', '512'];
+                return chain(
+                    sizes.map(size => downloadFile(
+                        `https://cdn.hcuge.ch/icons/icon-${size}x${size}.png`,
+                        `src/assets/icons/icon-${size}x${size}.png`
+                    ))
+                );
+            },
 
             // Modify index.html
             (): void => {
