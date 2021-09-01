@@ -14,8 +14,8 @@ import { AppUpdaterDialogComponent } from './app-updater-dialog.component';
     ],
     imports: [
         CommonModule,
-        MatDialogModule,
-        MatButtonModule
+        MatButtonModule,
+        MatDialogModule
     ]
 })
 export class AppUpdaterDialogModule { }

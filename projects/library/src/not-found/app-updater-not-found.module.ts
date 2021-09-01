@@ -14,11 +14,11 @@ import { AppUpdaterNotFoundRoutingModule } from './app-updater-not-found-routing
         AppUpdaterNotFoundPage
     ],
     imports: [
-        CommonModule,
         AppUpdaterNotFoundRoutingModule,
-        MatProgressSpinnerModule,
+        CommonModule,
         MatButtonModule,
-        MatIconModule
+        MatIconModule,
+        MatProgressSpinnerModule
     ]
 })
 export class AppUpdaterNotFoundModule {
