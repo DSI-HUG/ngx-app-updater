@@ -39,7 +39,7 @@
         "@angular/service-worker": "^12.2.0",
         "@hug/eslint-config": "^3.1.2",
         "@types/jasmine": "^3.8.1",
-        "@types/node": "^16.7.10",
+        "@types/node": "^16.10.3",
         "@types/semver": "^7.3.7",
         "chokidar": "^3.5.2",
         "colors": "^1.4.0",
