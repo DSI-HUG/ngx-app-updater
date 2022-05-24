@@ -5,6 +5,7 @@
         "entryFile": "./index.ts"
     },
     "allowedNonPeerDependencies": [
-        "@badisi/latest-version"
+        "@badisi/latest-version",
+        "@colors/colors"
     ]
 }
