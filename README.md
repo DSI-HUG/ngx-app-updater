@@ -30,10 +30,11 @@
 
 <hr/>
 
-
-This library is a wrapper around the official [@angular/service-worker][angular-service-worker] library with extra functionalities and configurations.
+This library is a wrapper around the official [@angular/service-worker][angular-service-worker] library with extra functionalities.
 
 It adds [Progressive Web App][pwa] supports and **updates notifications** to an Angular project.
+
+<hr/>
 
 
 ## Getting started
@@ -94,9 +95,6 @@ They can choose to update immediately, delay the update until a later time, or b
 
 By default, updates are checked every minute, and users are prompted about updates every day.
 
-> TIP: in case `@angular/material` is also installed, the dialog will be themed accordingly.
-> TIP: you can also provide your own dialog, following this [example][dialog-example] and using the `dialogOptions.component` option.
-
 <p align="center">
     <img src="assets/notification-1.png" width="30%" />
     <img src="assets/notification-2.png" width="30%" />
@@ -105,6 +103,10 @@ By default, updates are checked every minute, and users are prompted about updat
 #### Usage
 
 Have a look at the [Options](#options) section to discover what can be customized.
+
+> TIP: in case `@angular/material` is installed, the dialog will be themed accordingly.
+
+> TIP: you can provide your own dialog, following this [example][dialog-example] and using the `dialogOptions.component` option.
 
 
 ### 4️⃣0️⃣4️⃣ Not found page
@@ -115,9 +117,6 @@ To mitigate this behavior, this library provides a `404 page` that you could use
 
 Users will then be able to relaunch their application, apply the update and be presented with the new route.
 
-> TIP: in case `@angular/material` is also installed, the page will be themed accordingly.
-> TIP: you can also design your own 404 page following this [example][404-example].
-
 <p align="center">
     <img src="assets/not-found-1.png" width="30%" />
     <img src="assets/not-found-2.png" width="30%" />
@@ -127,6 +126,10 @@ Users will then be able to relaunch their application, apply the update and be p
 #### Usage
 
 Have a look at the [Options](#options) section to discover what can be customized.
+
+> TIP: in case `@angular/material` is installed, this page will be themed accordingly.
+
+> TIP: you can design your own 404 page following this [example][404-example].
 
 ```ts
 import { Routes } from '@angular/router';
