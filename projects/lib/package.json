@@ -39,7 +39,7 @@
         "rxjs": ">= 7"
     },
     "dependencies": {
-        "@hug/ngx-schematics-utilities": "^9.0.1",
+        "@hug/ngx-schematics-utilities": "^9.0.2",
         "tslib": "^2.6.2"
     },
     "engines": {
