@@ -16,20 +16,6 @@ ngx-app-updater-not-found-page {
         flex-direction: row;
     }
 
-    // header {
-    //     height: 95px;
-    //     min-height: 95px;
-    //     padding: 0 5%;
-    //     background-color: #fff;
-    //     box-shadow: 0 2px 20px 0 rgba(0, 0, 0, 0.05);
-
-    //     .icon {
-    //         width: 163px;
-    //         height: 38px;
-    //         padding-top: 25px;
-    //     }
-    // }
-
     .content {
         display: flex;
         flex: 1;
@@ -173,20 +159,6 @@ ngx-app-updater-not-found-page {
         }
     }
 
-    // footer {
-    //     color: #fff;
-    //     text-align: center;
-    //     background-color: #93cfa9;
-    //     padding: 20px 68px 0 68px !important;
-    //     min-height: 200px;
-    //     padding: 0;
-    //     box-shadow: 0 30px 50px rgba(0, 0, 0, 0.1) inset;
-
-    //     strong {
-    //         font-weight: 500;
-    //     }
-    // }
-
     @media (max-width: 1000px) {
         min-width: 0;
         min-height: 0;
@@ -228,10 +200,5 @@ ngx-app-updater-not-found-page {
                 height: 35%;
             }
         }
-
-        // footer {
-        //     padding-left: 5% !important;
-        //     padding-right: 5% !important;
-        // }
     }
 }
