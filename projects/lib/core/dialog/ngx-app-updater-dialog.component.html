@@ -1,0 +1,13 @@
+<div #ngxAppUpdaterDialogContainer
+     class="ngx-app-updater-dialog__container"
+     role="dialog"
+     tabindex="-1"
+     aria-modal="true">
+
+    <ng-content></ng-content>
+</div>
+
+<div #ngxAppUpdaterDialogOverlay
+     class="ngx-app-updater-dialog__overlay"
+     (click)="!dialogRef.options?.disableClose && dialogRef.close(false)">
+</div>

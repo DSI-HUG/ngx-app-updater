@@ -1,0 +1,22 @@
+<h2 class="ngx-app-updater-dialog-content__title">
+    {{ dialogRef.options?.title ?? 'New version available' }}
+</h2>
+
+<div class="ngx-app-updater-dialog-content__message">
+    {{ dialogRef.options?.message ?? ((dialogRef.options?.disableClose) ? 'Your application needs to be updated.' :
+    'Would you like to update your application now ?') }}
+</div>
+
+<div class="ngx-app-updater-dialog-content__actions">
+    @if (!dialogRef.options?.disableClose) {
+    <button type="button"
+            (click)="dialogRef.close(false)">
+        {{ dialogRef.options?.cancelLabel ?? 'No, Later' }}
+    </button>
+    }
+    <button type="button"
+            autofocus
+            (click)="dialogRef.close(true)">
+        {{ dialogRef.options?.updateLabel ?? ((dialogRef.options?.disableClose) ? 'Ok' : 'Yes') }}
+    </button>
+</div>

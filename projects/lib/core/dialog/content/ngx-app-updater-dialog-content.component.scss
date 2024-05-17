@@ -1,0 +1,99 @@
+ngx-app-updater-dialog-content {
+    display: flex;
+    flex-direction: column;
+    border-radius: 28px;
+    background-color: white;
+    box-shadow:
+        0px 0px 0px 0px rgba(0, 0, 0, 0.2),
+        0px 0px 0px 0px rgba(0, 0, 0, 0.14),
+        0px 0px 0px 0px rgba(0, 0, 0, 0.12);
+
+    .ngx-app-updater-dialog-content__title {
+        display: block;
+        position: relative;
+        flex-shrink: 0;
+        box-sizing: border-box;
+        margin: 0 0 1px;
+        font-family: var(--mdc-dialog-subhead-font, Roboto, sans-serif);
+        line-height: var(--mdc-dialog-subhead-line-height, 2rem);
+        font-size: var(--mdc-dialog-subhead-size, 1.5rem);
+        font-weight: var(--mdc-dialog-subhead-weight, 400);
+        letter-spacing: var(--mdc-dialog-subhead-tracking, 0rem);
+        color: var(--mdc-dialog-subhead-color, #1a1b1f);
+        padding: var(--mat-dialog-headline-padding, 20px 24px 13px 24px);
+    }
+
+    .ngx-app-updater-dialog-content__message {
+        flex-grow: 1;
+        box-sizing: border-box;
+        margin: 0;
+        overflow: auto;
+        font-family: var(--mdc-dialog-supporting-text-font, Roboto, sans-serif);
+        line-height: var(--mdc-dialog-supporting-text-line-height, 1.25rem);
+        font-size: var(--mdc-dialog-supporting-text-size, 0.875rem);
+        font-weight: var(--mdc-dialog-supporting-text-weight, 400);
+        letter-spacing: var(--mdc-dialog-supporting-text-tracking, 0.016rem);
+        color: var(--mdc-dialog-supporting-text-color, #44474e);
+        padding: var(--mat-dialog-with-actions-content-padding, 0 24px);
+    }
+
+    .ngx-app-updater-dialog-content__actions {
+        display: flex;
+        position: relative;
+        flex-shrink: 0;
+        flex-wrap: wrap;
+        align-items: center;
+        box-sizing: border-box;
+        min-height: 52px;
+        margin: 0;
+        border-top: 1px solid rgba(0, 0, 0, 0);
+        padding: var(--mat-dialog-actions-padding, 16px 24px);
+        justify-content: var(--mat-dialog-actions-alignment, flex-end);
+
+        button {
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            box-sizing: border-box;
+            min-width: 64px;
+            border: none;
+            outline: none;
+            line-height: inherit;
+            user-select: none;
+            overflow: visible;
+            vertical-align: middle;
+            background: rgba(0, 0, 0, 0);
+            text-decoration: none;
+            -webkit-appearance: none;
+            margin-left: 8px;
+            -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+            font-family: var(--mdc-text-button-label-text-font, Roboto, sans-serif);
+            font-size: var(--mdc-text-button-label-text-size, 0.875rem);
+            letter-spacing: var(--mdc-text-button-label-text-tracking, 0.006rem);
+            font-weight: var(--mdc-text-button-label-text-weight, 500);
+            height: var(--mdc-text-button-container-height, 40px);
+            border-radius: var(--mdc-text-button-container-shape, 9999px);
+            padding: 0 var(--mat-text-button-horizontal-padding, 12px);
+            color: var(--mdc-text-button-label-text-color, black);
+
+            &:hover,
+            &:focus {
+                cursor: pointer;
+
+                &:before {
+                    position: absolute;
+                    content: "";
+                    top: 0;
+                    left: 0;
+                    right: 0;
+                    bottom: 0;
+                    pointer-events: none;
+                    border-radius: inherit;
+                    opacity: var(--mat-text-button-hover-state-layer-opacity, 0.08);
+                    background-color: var(--mat-text-button-state-layer-color, black);
+                }
+            }
+        }
+    }
+}

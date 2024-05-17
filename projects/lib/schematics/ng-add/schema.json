@@ -1,0 +1,22 @@
+{
+    "$schema": "http://json-schema.org/schema",
+    "$id": "ng-add",
+    "title": "ng-add schematic",
+    "type": "object",
+    "properties": {
+        "project": {
+            "description": "Name of the Angular project",
+            "type": "string",
+            "$default": {
+                "$source": "projectName"
+            }
+        },
+        "disableClose": {
+            "x-prompt": "Allow user to cancel an update",
+            "description": "Cancelling update",
+            "type": "boolean",
+            "default": false
+        }
+    },
+    "additionalProperties": false
+}

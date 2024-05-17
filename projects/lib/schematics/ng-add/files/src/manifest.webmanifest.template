@@ -1,0 +1,57 @@
+{
+    "id": "./",
+    "scope": "./",
+    "start_url": "./",
+    "name": "<%= appName %>",
+    "short_name": "<%= appName %>",
+    "description": "<%= appName %> description",
+    "display": "standalone",
+    "theme_color": "#ffffff",
+    "background_color": "#fafafa",
+    "screenshots": [
+        {
+            "src": "assets/screenshots/screenshot-desktop.png",
+            "sizes": "1364x1052",
+            "type": "image/png",
+            "form_factor": "wide"
+        },
+        {
+            "src": "assets/screenshots/screenshot-mobile.png",
+            "sizes": "612x1066",
+            "type": "image/png",
+            "form_factor": "narrow"
+        }
+    ],
+    "icons": [
+        {
+            "src": "assets/icons/icon-192x192.png",
+            "sizes": "192x192",
+            "type": "image/png",
+            "purpose": "any"
+        },
+        {
+            "src": "assets/icons/icon-384x384.png",
+            "sizes": "384x384",
+            "type": "image/png",
+            "purpose": "any"
+        },
+        {
+            "src": "assets/icons/icon-512x512.png",
+            "sizes": "512x512",
+            "type": "image/png",
+            "purpose": "any"
+        },
+        {
+            "src": "assets/icons/icon-512x512.png",
+            "sizes": "512x512",
+            "type": "image/png",
+            "purpose": "maskable"
+        },
+        {
+            "src": "assets/icons/icon-1024x1024.png",
+            "sizes": "1024x1024",
+            "type": "image/png",
+            "purpose": "any"
+        }
+    ]
+}
