@@ -40,8 +40,8 @@
         "rxjs": ">= 7"
     },
     "dependencies": {
-        "@hug/ngx-schematics-utilities": "^9.1.0",
-        "tslib": "^2.6.2"
+        "@hug/ngx-schematics-utilities": "^10.1.2",
+        "tslib": "^2.6.3"
     },
     "engines": {
         "node": ">= 18.12.0"
