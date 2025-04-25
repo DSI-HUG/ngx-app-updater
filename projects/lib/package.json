@@ -1,6 +1,6 @@
 {
     "name": "@hug/ngx-app-updater",
-    "version": "2.0.6",
+    "version": "2.0.7",
     "description": "Notify about Angular application's update",
     "homepage": "https://github.com/dsi-hug/ngx-app-updater",
     "license": "GPL-3.0-only",
