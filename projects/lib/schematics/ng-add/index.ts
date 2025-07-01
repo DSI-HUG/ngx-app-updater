@@ -1,7 +1,7 @@
 import { tags } from '@angular-devkit/core';
 import { chain, Rule, Tree } from '@angular-devkit/schematics';
 import {
-    addImportToFile, addImportToNgModule, addProviderToBootstrapApplication, application, ApplicationDefinition,
+    addImportToFile, addImportToNgModule, addProviderToBootstrapApplication, application,
     ChainableApplicationContext, downloadFile, modifyJsonFile, schematic, workspace
 } from '@hug/ngx-schematics-utilities';
 import { JSONFile } from '@schematics/angular/utility/json-file';
@@ -9,7 +9,7 @@ import { Builders } from '@schematics/angular/utility/workspace-models';
 
 import { NgAddOptions } from './ng-add-options';
 
-export const provideLib = (project: ApplicationDefinition, options: NgAddOptions): Rule => {
+export const provideLib = ({ tree, project }: ChainableApplicationContext, options: NgAddOptions): Rule => {
     const rules: Rule[] = [];
 
     // Provide library
@@ -29,7 +29,10 @@ export const provideLib = (project: ApplicationDefinition, options: NgAddOptions
             '@hug/ngx-app-updater'
         ));
     } else {
-        const appModulePath = project.pathFromSourceRoot('app/app-module.ts');
+        let appModulePath = project.pathFromSourceRoot('app/app-module.ts'); // for Angular 20+
+        if (!tree.exists(appModulePath)) {
+            appModulePath = project.pathFromSourceRoot('app/app.module.ts'); // for Angular < 20
+        }
         rules.push(addImportToFile(appModulePath, 'isDevMode', '@angular/core'));
         rules.push(addImportToNgModule(
             appModulePath,
@@ -117,7 +120,7 @@ export default (options: NgAddOptions): Rule =>
                 })
 
                 // Provide the library
-                .rule(context => provideLib(context.project, options))
+                .rule(context => provideLib(context, options))
 
                 // Log info
                 .logAction('Have a look at `manifest.webmanifest` and `ngsw-config.json` files and update them according to your needs')

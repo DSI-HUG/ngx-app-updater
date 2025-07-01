@@ -107,9 +107,9 @@ const jac = jasmine.arrayContaining;
                 });
             }
 
-            it('should update app.module.ts', async () => {
+            it('should update app-module.ts', async () => {
                 await runner.runSchematic('ng-add', defaultOptions, tree);
-                const mainTsContent = tree.readContent(project.pathFromSourceRoot('app/app.module.ts'));
+                const mainTsContent = tree.readContent(project.pathFromSourceRoot('app/app-module.ts'));
                 if (useStandalone) {
                     expect(mainTsContent).not.toContain('import { NgModule, isDevMode } from \'@angular/core\';');
                     expect(mainTsContent).not.toContain('import { NgxAppUpdaterModule } from \'@hug/ngx-app-updater\';');
@@ -126,9 +126,9 @@ const jac = jasmine.arrayContaining;
             });
 
             if (!useStandalone) {
-                it('should update app.module.ts (with disableClose)', async () => {
+                it('should update app-module.ts (with disableClose)', async () => {
                     await runner.runSchematic('ng-add', { ...defaultOptions, disableClose: true }, tree);
-                    const mainTsContent = tree.readContent(project.pathFromSourceRoot('app/app.module.ts'));
+                    const mainTsContent = tree.readContent(project.pathFromSourceRoot('app/app-module.ts'));
                     expect(mainTsContent).toContain('import { NgModule, isDevMode } from \'@angular/core\';');
                     expect(mainTsContent).toContain('import { NgxAppUpdaterModule } from \'@hug/ngx-app-updater\';');
                     expect(mainTsContent).toContain('NgxAppUpdaterModule.forRoot({\n' +
