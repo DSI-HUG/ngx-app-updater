@@ -83,20 +83,20 @@ const jac = jasmine.arrayContaining;
             });
 
             if (useStandalone) {
-                it('should update app.config.ts', async () => {
+                it('should update app-config.ts', async () => {
                     await runner.runSchematic('ng-add', defaultOptions, tree);
                     const configTsContent = tree.readContent(project.mainConfigFilePath!);
-                    expect(configTsContent).toContain('import { ApplicationConfig, provideZoneChangeDetection, isDevMode } from \'@angular/core\';');
+                    expect(configTsContent).toMatch(/import { ApplicationConfig, .*, provideZoneChangeDetection, isDevMode } from '@angular\/core';/);
                     expect(configTsContent).toContain('import { provideAppUpdater } from \'@hug/ngx-app-updater\';');
                     expect(configTsContent).toContain('provideAppUpdater({\n' +
                     '      enabled: !isDevMode()\n' +
                     '    })');
                 });
 
-                it('should update app.config.ts (with disableClose)', async () => {
+                it('should update app-config.ts (with disableClose)', async () => {
                     await runner.runSchematic('ng-add', { ...defaultOptions, disableClose: true }, tree);
                     const configTsContent = tree.readContent(project.mainConfigFilePath!);
-                    expect(configTsContent).toContain('import { ApplicationConfig, provideZoneChangeDetection, isDevMode } from \'@angular/core\';');
+                    expect(configTsContent).toMatch(/import { ApplicationConfig, .*, provideZoneChangeDetection, isDevMode } from '@angular\/core';/);
                     expect(configTsContent).toContain('import { provideAppUpdater } from \'@hug/ngx-app-updater\';');
                     expect(configTsContent).toContain('provideAppUpdater({\n' +
                     '      enabled: !isDevMode(),\n' +
@@ -117,7 +117,7 @@ const jac = jasmine.arrayContaining;
                     '      enabled: !isDevMode()\n' +
                     '    })');
                 } else {
-                    expect(mainTsContent).toContain('import { NgModule, isDevMode } from \'@angular/core\';');
+                    expect(mainTsContent).toMatch(/import { NgModule, .*, isDevMode } from '@angular\/core';/);
                     expect(mainTsContent).toContain('import { NgxAppUpdaterModule } from \'@hug/ngx-app-updater\';');
                     expect(mainTsContent).toContain('NgxAppUpdaterModule.forRoot({\n' +
                     '      enabled: !isDevMode()\n' +
@@ -129,7 +129,7 @@ const jac = jasmine.arrayContaining;
                 it('should update app-module.ts (with disableClose)', async () => {
                     await runner.runSchematic('ng-add', { ...defaultOptions, disableClose: true }, tree);
                     const mainTsContent = tree.readContent(project.pathFromSourceRoot('app/app-module.ts'));
-                    expect(mainTsContent).toContain('import { NgModule, isDevMode } from \'@angular/core\';');
+                    expect(mainTsContent).toMatch(/import { NgModule, .*, isDevMode } from '@angular\/core';/);
                     expect(mainTsContent).toContain('import { NgxAppUpdaterModule } from \'@hug/ngx-app-updater\';');
                     expect(mainTsContent).toContain('NgxAppUpdaterModule.forRoot({\n' +
                         '      enabled: !isDevMode(),\n' +
