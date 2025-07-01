@@ -29,7 +29,7 @@ export const provideLib = (project: ApplicationDefinition, options: NgAddOptions
             '@hug/ngx-app-updater'
         ));
     } else {
-        const appModulePath = project.pathFromSourceRoot('app/app.module.ts');
+        const appModulePath = project.pathFromSourceRoot('app/app-module.ts');
         rules.push(addImportToFile(appModulePath, 'isDevMode', '@angular/core'));
         rules.push(addImportToNgModule(
             appModulePath,
