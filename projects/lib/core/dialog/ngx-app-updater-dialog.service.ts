@@ -1,6 +1,6 @@
 import { ApplicationRef, createComponent, EnvironmentInjector, inject, Injectable, Injector } from '@angular/core';
 
-import { NgxAppUpdaterDialogOptions } from '../models/ngx-app-updater-dialog-options.model';
+import type { NgxAppUpdaterDialogOptions } from '../models/ngx-app-updater-dialog-options.model';
 import { NgxAppUpdaterDialogContentComponent } from './content';
 import { NgxAppUpdaterDialogComponent } from './ngx-app-updater-dialog.component';
 import { NgxAppUpdaterDialogRef } from './ngx-app-updater-dialog-ref';

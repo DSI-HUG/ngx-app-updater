@@ -1,6 +1,6 @@
-import { ModuleWithProviders, NgModule } from '@angular/core';
+import { type ModuleWithProviders, NgModule } from '@angular/core';
 
-import { NgxAppUpdaterOptions } from './models/ngx-app-updater-options.model';
+import type { NgxAppUpdaterOptions } from './models/ngx-app-updater-options.model';
 import { NGX_APP_UPDATER_PROVIDERS } from './ngx-app-updater';
 
 @NgModule()

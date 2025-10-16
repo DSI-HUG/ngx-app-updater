@@ -1,13 +1,13 @@
 import { tags } from '@angular-devkit/core';
-import { chain, Rule, Tree } from '@angular-devkit/schematics';
+import { chain, type Rule, type Tree } from '@angular-devkit/schematics';
 import {
     addImportToFile, addImportToNgModule, addProviderToBootstrapApplication, application,
-    ChainableApplicationContext, downloadFile, modifyJsonFile, schematic, workspace
+    type ChainableApplicationContext, downloadFile, modifyJsonFile, schematic, workspace
 } from '@hug/ngx-schematics-utilities';
 import { JSONFile } from '@schematics/angular/utility/json-file';
 import { Builders } from '@schematics/angular/utility/workspace-models';
 
-import { NgAddOptions } from './ng-add-options';
+import type { NgAddOptions } from './ng-add-options';
 
 export const provideLib = ({ tree, project }: ChainableApplicationContext, options: NgAddOptions): Rule => {
     const rules: Rule[] = [];
@@ -94,7 +94,7 @@ export default (options: NgAddOptions): Rule =>
                 // Modify index.html
                 .rule(({ project }: ChainableApplicationContext) => {
                     const indexHtmlPath = project.pathFromSourceRoot('index.html');
-                    let indexHtmlContent = tree.read(indexHtmlPath)?.toString('utf-8') || '';
+                    let indexHtmlContent = tree.read(indexHtmlPath)?.toString('utf-8') ?? '';
                     let needsOverwrite = false;
                     // Add manifest link
                     if (!indexHtmlContent.includes('<link rel="manifest"')) {

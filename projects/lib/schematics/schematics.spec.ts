@@ -1,8 +1,9 @@
-/* eslint-disable array-element-newline */
-import { Rule, SchematicContext, Tree } from '@angular-devkit/schematics';
-import { SchematicTestRunner, UnitTestTree } from '@angular-devkit/schematics/testing';
-import { Schema as ApplicationOptions, Style } from '@schematics/angular/application/schema';
-import { Schema as WorkspaceOptions } from '@schematics/angular/workspace/schema';
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
+
+import type { Rule, SchematicContext, Tree } from '@angular-devkit/schematics';
+import { SchematicTestRunner, type UnitTestTree } from '@angular-devkit/schematics/testing';
+import { type Schema as ApplicationOptions, Style } from '@schematics/angular/application/schema';
+import type { Schema as WorkspaceOptions } from '@schematics/angular/workspace/schema';
 import { join } from 'path';
 import { lastValueFrom } from 'rxjs';
 

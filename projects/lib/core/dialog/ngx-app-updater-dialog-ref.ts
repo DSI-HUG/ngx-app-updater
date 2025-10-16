@@ -1,6 +1,6 @@
-import { Observable, Subject } from 'rxjs';
+import { type Observable, Subject } from 'rxjs';
 
-import { NgxAppUpdaterDialogOptions } from '../models';
+import type { NgxAppUpdaterDialogOptions } from '../models';
 
 export class NgxAppUpdaterDialogRef {
     public readonly options?: NgxAppUpdaterDialogOptions;
@@ -10,7 +10,7 @@ export class NgxAppUpdaterDialogRef {
         return this._close$.asObservable();
     }
 
-    constructor(options?: NgxAppUpdaterDialogOptions) {
+    public constructor(options?: NgxAppUpdaterDialogOptions) {
         this.options = options;
     }
 

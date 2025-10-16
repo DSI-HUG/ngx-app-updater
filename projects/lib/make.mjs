@@ -1,4 +1,4 @@
-/* eslint-disable array-element-newline */
+
 
 /**
  * Usage: $ node ./make.mjs <watch|lint|test-lib|test-schematics|test-ci|build|build-global>
@@ -128,7 +128,7 @@ const buildLib = async (exitOnError = true) => {
         if (LIBRARY_TYPE === 'ng') {
             spawnCmd('ng', ['build', NG_PROJECT_LIBRARY_NAME, '--configuration', 'production'], true, exitOnError);
         } else {
-            spawnCmd('tsc', ['-p', './tsconfig.lib.prod.json'], true, exitOnError);
+            spawnCmd('tsc', ['-p', './tsconfig.prod.json'], true, exitOnError);
         }
     }
 
@@ -161,13 +161,13 @@ const testLib = (ci = false) => {
             }
             spawnCmd('ng', ligArgs);
         } else {
-            test('tsconfig.lib.spec.json', ci);
+            test('tsconfig.spec.json', ci);
         }
     }
 };
 
 const lint = () => {
-    const lintArgs = ['--ignore-pattern', '**/files/**/*'];
+    const lintArgs = ['--ignore-pattern', '**/files/**/*', '--ignore-pattern', '**/*.spec.ts'];
     if (existsSync(SCHEMATICS_SRC_PATH)) {
         lintArgs.unshift(`./{${LIBRARY_SRC},${SCHEMATICS_SRC}}/**/*.{ts,html}`);
     } else {

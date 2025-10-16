@@ -1,9 +1,9 @@
-import { ApplicationRef, inject, Injectable, NgZone, OnDestroy } from '@angular/core';
+import { ApplicationRef, inject, Injectable, NgZone, type OnDestroy } from '@angular/core';
 import { SwUpdate } from '@angular/service-worker';
 import { concatMap, first, from, map, Observable, of, repeat, ReplaySubject, Subscription, takeWhile, tap } from 'rxjs';
 
 import { NgxAppUpdaterDialogService } from './dialog';
-import { NgxAppUpdaterOptions } from './models/ngx-app-updater-options.model';
+import type { NgxAppUpdaterOptions } from './models/ngx-app-updater-options.model';
 import { NGX_APP_UPDATER_OPTIONS } from './ngx-app-updater';
 
 @Injectable({
@@ -28,7 +28,7 @@ export class NgxAppUpdaterService implements OnDestroy {
         return this._updateAvailable$.asObservable();
     }
 
-    constructor() {
+    public constructor() {
         this.init();
     }
 
@@ -58,7 +58,7 @@ export class NgxAppUpdaterService implements OnDestroy {
                     observer.complete();
                 } else {
                     this.verbose('Prompting user...');
-                    const dialogRef = this.dialog.open(this.options?.dialogOptions);
+                    const dialogRef = this.dialog.open(this.options.dialogOptions);
                     dialogRef.afterClosed$.subscribe(applyUpdate => {
                         if (applyUpdate) {
                             this.applyUpdate();
@@ -77,7 +77,9 @@ export class NgxAppUpdaterService implements OnDestroy {
     private checkForUpdate$(): Observable<boolean> {
         return this.appRef.isStable.pipe(
             first(isStable => isStable),
-            tap(() => this.verbose('Checking for update...')),
+            tap(() => {
+                this.verbose('Checking for update...');
+            }),
             concatMap(() => from(this.swUpdate.checkForUpdate())),
             concatMap(updateAvailable => {
                 let log = updateAvailable ? 'Update available' : 'No update available';
@@ -158,7 +160,9 @@ export class NgxAppUpdaterService implements OnDestroy {
             // Check for update
             this.subs.add(
                 this.checkForUpdate$().subscribe({
-                    complete: () => this.verbose('Service stopped')
+                    complete: () => {
+                        this.verbose('Service stopped');
+                    }
                 })
             );
         } else {

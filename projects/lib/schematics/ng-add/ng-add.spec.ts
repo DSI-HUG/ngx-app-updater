@@ -1,9 +1,10 @@
-import { UnitTestTree } from '@angular-devkit/schematics/testing';
-import { ApplicationDefinition, getProjectFromWorkspace, modifyJsonFile } from '@hug/ngx-schematics-utilities';
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
+import type { UnitTestTree } from '@angular-devkit/schematics/testing';
+import { type ApplicationDefinition, getProjectFromWorkspace, modifyJsonFile } from '@hug/ngx-schematics-utilities';
 import { Builders } from '@schematics/angular/utility/workspace-models';
 
 import { appTest1, callRule, getCleanAppTree, runner } from '../schematics.spec';
-import { NgAddOptions } from './ng-add-options';
+import type { NgAddOptions } from './ng-add-options';
 
 const joc = jasmine.objectContaining;
 const jac = jasmine.arrayContaining;

@@ -1,4 +1,4 @@
-import { AfterViewInit, ChangeDetectionStrategy, Component, ElementRef, inject, ViewChild, ViewEncapsulation } from '@angular/core';
+import { type AfterViewInit, ChangeDetectionStrategy, Component, type ElementRef, inject, ViewChild, ViewEncapsulation } from '@angular/core';
 
 import { NgxAppUpdaterDialogRef } from './ngx-app-updater-dialog-ref';
 

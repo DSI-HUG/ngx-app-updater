@@ -1,17 +1,17 @@
-/* eslint-disable @typescript-eslint/naming-convention */
-import { ENVIRONMENT_INITIALIZER, EnvironmentProviders, inject, InjectionToken, Provider } from '@angular/core';
+import { ENVIRONMENT_INITIALIZER, type EnvironmentProviders, inject, InjectionToken, type Provider } from '@angular/core';
 import { provideServiceWorker } from '@angular/service-worker';
 
 import { NgxAppUpdaterDialogService } from './dialog';
-import { NgxAppUpdaterOptions } from './models/ngx-app-updater-options.model';
+import type { NgxAppUpdaterOptions } from './models/ngx-app-updater-options.model';
 import { NgxAppUpdaterService } from './ngx-app-updater.service';
 
-// eslint-disable-next-line @typescript-eslint/naming-convention
+
 export const NGX_APP_UPDATER_OPTIONS = new InjectionToken<NgxAppUpdaterOptions>('NGX_APP_UPDATER_OPTIONS');
 
 export const NGX_APP_UPDATER_PROVIDERS = (options?: NgxAppUpdaterOptions): (Provider | EnvironmentProviders)[] => [
     NgxAppUpdaterDialogService,
     {
+        // eslint-disable-next-line @typescript-eslint/no-deprecated
         provide: ENVIRONMENT_INITIALIZER,
         useValue: () => inject(NgxAppUpdaterService),
         multi: true
@@ -36,6 +36,7 @@ export const NGX_APP_UPDATER_PROVIDERS = (options?: NgxAppUpdaterOptions): (Prov
         // or after 30 seconds (whichever comes first).
         registrationStrategy: 'registerWhenStable:5000',
         enabled: options?.enabled ?? false,
+        // eslint-disable-next-line @typescript-eslint/no-misused-spread
         ...options?.swRegistrationOptions
     })
 ];

@@ -19,10 +19,10 @@
                     },
                     "configurations": {
                         "production": {
-                            "tsConfig": "projects/lib/tsconfig.lib.prod.json"
+                            "tsConfig": "projects/lib/tsconfig.prod.json"
                         },
                         "development": {
-                            "tsConfig": "projects/lib/tsconfig.lib.json"
+                            "tsConfig": "projects/lib/tsconfig.json"
                         }
                     },
                     "defaultConfiguration": "production"
@@ -48,7 +48,7 @@
                         }
                     },
                     "options": {
-                        "tsConfig": "projects/lib/tsconfig.lib.spec.json",
+                        "tsConfig": "projects/lib/tsconfig.spec.json",
                         "polyfills": ["zone.js", "zone.js/testing"]
                     }
                 }

@@ -1,7 +1,7 @@
-import { SwRegistrationOptions } from '@angular/service-worker';
+import type { SwRegistrationOptions } from '@angular/service-worker';
 
-import { NgxAppUpdaterDialogOptions } from './ngx-app-updater-dialog-options.model';
-import { NgxAppUpdaterNotFoundOptions } from './ngx-app-updater-not-found-options.model';
+import type { NgxAppUpdaterDialogOptions } from './ngx-app-updater-dialog-options.model';
+import type { NgxAppUpdaterNotFoundOptions } from './ngx-app-updater-not-found-options.model';
 
 export interface NgxAppUpdaterOptions {
     /**
