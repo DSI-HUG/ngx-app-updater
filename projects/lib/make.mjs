@@ -1,5 +1,3 @@
-
-
 /**
  * Usage: $ node ./make.mjs <watch|lint|test-lib|test-schematics|test-ci|build|build-global>
  */
@@ -9,8 +7,8 @@ import { watch as chokidarWatch } from 'chokidar';
 import cpy from 'cpy';
 import crossSpawn from 'cross-spawn';
 import fxExtra from 'fs-extra';
-import { dirname, resolve as pathResolve } from 'path';
-import { fileURLToPath } from 'url';
+import { dirname, resolve as pathResolve } from 'node:path';
+import { fileURLToPath } from 'node:url';
 
 const { existsSync, mkdirSync, readFileSync, rmSync } = fxExtra;
 const { green, magenta } = colors;
