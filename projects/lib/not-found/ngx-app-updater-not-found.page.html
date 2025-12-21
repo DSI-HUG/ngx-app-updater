@@ -1,12 +1,12 @@
 <ng-template #updateAvailableTpl>
     <blockquote class="update-available-template">
-        <strong>{{ options?.updateAvailable ?? 'New update available !'}}</strong>
+        <strong>{{ options?.updateAvailable ?? 'New update available !' }}</strong>
     </blockquote>
 </ng-template>
 
 <ng-template #noUpdateAvailableTpl>
     <blockquote>
-        <strong>{{ options?.noUpdateAvailable ?? 'No update available'}}</strong>
+        <strong>{{ options?.noUpdateAvailable ?? 'No update available' }}</strong>
     </blockquote>
 </ng-template>
 
@@ -18,7 +18,7 @@
             <div></div>
             <div></div>
         </div>
-        <strong>{{ options?.searchingForUpdates ?? 'Searching for updates'}}...</strong>
+        <strong>{{ options?.searchingForUpdates ?? 'Searching for updates' }}...</strong>
     </blockquote>
 </ng-template>
 
@@ -27,8 +27,7 @@
         <h1 class="title">{{ options?.title ?? '404 Page not found' }}</h1>
 
         <p class="message">
-            {{ options?.message ?? 'It seems that this page does not exist or that your application is not up to date.'
-            }}
+            {{ options?.message ?? 'It seems that this page does not exist or that your application is not up to date.' }}
         </p>
 
         @if (checkingUpdate) {

@@ -8,7 +8,7 @@ export class NgxAppUpdaterModule {
     public static forRoot(options?: NgxAppUpdaterOptions): ModuleWithProviders<NgxAppUpdaterModule> {
         return {
             ngModule: NgxAppUpdaterModule,
-            providers: NGX_APP_UPDATER_PROVIDERS(options)
+            providers: NGX_APP_UPDATER_PROVIDERS(options),
         };
     }
 }

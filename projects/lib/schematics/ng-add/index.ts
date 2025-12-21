@@ -2,7 +2,7 @@ import { tags } from '@angular-devkit/core';
 import { chain, type Rule, type Tree } from '@angular-devkit/schematics';
 import {
     addImportToFile, addImportToNgModule, addProviderToBootstrapApplication, application,
-    type ChainableApplicationContext, downloadFile, modifyJsonFile, schematic, workspace
+    type ChainableApplicationContext, downloadFile, modifyJsonFile, schematic, workspace,
 } from '@hug/ngx-schematics-utilities';
 import { JSONFile } from '@schematics/angular/utility/json-file';
 import { Builders } from '@schematics/angular/utility/workspace-models';
@@ -26,7 +26,7 @@ export const provideLib = ({ tree, project }: ChainableApplicationContext, optio
         rules.push(addProviderToBootstrapApplication(
             project.mainFilePath,
             `provideAppUpdater({\n${tags.indentBy(2)`${opts}`}\n})`,
-            '@hug/ngx-app-updater'
+            '@hug/ngx-app-updater',
         ));
     } else {
         let appModulePath = project.pathFromSourceRoot('app/app-module.ts'); // for Angular 20+
@@ -36,8 +36,8 @@ export const provideLib = ({ tree, project }: ChainableApplicationContext, optio
         rules.push(addImportToFile(appModulePath, 'isDevMode', '@angular/core'));
         rules.push(addImportToNgModule(
             appModulePath,
-            `NgxAppUpdaterModule.forRoot({\n${tags.indentBy(2)`${opts}`}\n})`,
-            '@hug/ngx-app-updater'
+            `NgxAppUpdaterModule.forRoot({\n${tags.indentBy(6)`${opts}`}\n${tags.indentBy(4)`})`}`,
+            '@hug/ngx-app-updater',
         ));
     }
 
@@ -53,13 +53,13 @@ export default (options: NgAddOptions): Rule =>
                 // Add dependencies
                 .addPackageJsonDependencies([{
                     name: '@angular/service-worker',
-                    version: pkgJson.get(['dependencies', '@angular/core']) as string
+                    version: pkgJson.get(['dependencies', '@angular/core']) as string,
                 }])
                 .packageInstallTask()
 
                 // Deploy files
                 .deployFiles({
-                    appName: pkgJson.get(['appName']) ?? options.project
+                    appName: pkgJson.get(['appName']) ?? options.project,
                 })
 
                 .toRule(),
@@ -71,8 +71,8 @@ export default (options: NgAddOptions): Rule =>
                     return chain(
                         sizes.map(size => downloadFile(
                             `https://cdn.hug.ch/icons/hug/hug-icon-${size}x${size}.png`,
-                            project.pathFromSourceRoot(`assets/icons/icon-${size}x${size}.png`)
-                        ))
+                            project.pathFromSourceRoot(`assets/icons/icon-${size}x${size}.png`),
+                        )),
                     );
                 })
 
@@ -86,7 +86,7 @@ export default (options: NgAddOptions): Rule =>
                     } else {
                         return chain([
                             modifyJsonFile('angular.json', [...buildPath, 'options', 'serviceWorker'], true),
-                            modifyJsonFile('angular.json', [...buildPath, 'options', 'ngswConfigPath'], 'ngsw-config.json')
+                            modifyJsonFile('angular.json', [...buildPath, 'options', 'ngswConfigPath'], 'ngsw-config.json'),
                         ]);
                     }
                 })
@@ -126,6 +126,6 @@ export default (options: NgAddOptions): Rule =>
                 .logAction('Have a look at `manifest.webmanifest` and `ngsw-config.json` files and update them according to your needs')
                 .logAction('Have a look at `icons` and `screenshots` assets folders and update them according to your needs')
 
-                .toRule()
+                .toRule(),
         ], options);
     };

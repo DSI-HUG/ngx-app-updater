@@ -7,7 +7,7 @@ describe('lib', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [NgxAppUpdaterModule]
+            imports: [NgxAppUpdaterModule],
         });
         appUpdaterModule = TestBed.inject(NgxAppUpdaterModule);
     });

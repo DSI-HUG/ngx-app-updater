@@ -18,9 +18,9 @@ export class NgxAppUpdaterDialogService {
             elementInjector: Injector.create({
                 providers: [{
                     provide: NgxAppUpdaterDialogRef,
-                    useValue: dialogRef
-                }]
-            })
+                    useValue: dialogRef,
+                }],
+            }),
         });
         this.appRef.attachView(contentComponent.hostView);
         contentComponent.changeDetectorRef.detectChanges();
@@ -31,9 +31,9 @@ export class NgxAppUpdaterDialogService {
             elementInjector: Injector.create({
                 providers: [{
                     provide: NgxAppUpdaterDialogRef,
-                    useValue: dialogRef
-                }]
-            })
+                    useValue: dialogRef,
+                }],
+            }),
         });
         this.appRef.attachView(modalComponent.hostView);
         modalComponent.changeDetectorRef.detectChanges();

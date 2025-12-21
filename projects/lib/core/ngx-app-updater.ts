@@ -14,7 +14,7 @@ export const NGX_APP_UPDATER_PROVIDERS = (options?: NgxAppUpdaterOptions): (Prov
         // eslint-disable-next-line @typescript-eslint/no-deprecated
         provide: ENVIRONMENT_INITIALIZER,
         useValue: () => inject(NgxAppUpdaterService),
-        multi: true
+        multi: true,
     },
     {
         provide: NGX_APP_UPDATER_OPTIONS,
@@ -25,11 +25,11 @@ export const NGX_APP_UPDATER_PROVIDERS = (options?: NgxAppUpdaterOptions): (Prov
             dialogOptions: {
                 width: '90%',
                 maxWidth: '400px',
-                disableClose: false
+                disableClose: false,
             },
             // ---
-            ...options
-        } satisfies NgxAppUpdaterOptions
+            ...options,
+        } satisfies NgxAppUpdaterOptions,
     },
     provideServiceWorker('ngsw-worker.js', {
         // Register the ServiceWorker as soon as the application is stable
@@ -37,6 +37,6 @@ export const NGX_APP_UPDATER_PROVIDERS = (options?: NgxAppUpdaterOptions): (Prov
         registrationStrategy: 'registerWhenStable:5000',
         enabled: options?.enabled ?? false,
         // eslint-disable-next-line @typescript-eslint/no-misused-spread
-        ...options?.swRegistrationOptions
-    })
+        ...options?.swRegistrationOptions,
+    }),
 ];

@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
+import type { TargetDefinitionCollection } from '@angular-devkit/core/src/workspace/definitions';
 import type { UnitTestTree } from '@angular-devkit/schematics/testing';
 import { type ApplicationDefinition, getProjectFromWorkspace, modifyJsonFile } from '@hug/ngx-schematics-utilities';
 import { Builders } from '@schematics/angular/utility/workspace-models';
@@ -15,13 +16,13 @@ const jac = jasmine.arrayContaining;
             let defaultOptions: NgAddOptions;
             let tree: UnitTestTree;
             let nbFiles: number;
-            let project: ApplicationDefinition;
+            let project: ApplicationDefinition & { targets: TargetDefinitionCollection };
 
             beforeEach(async () => {
                 tree = await getCleanAppTree(useWorkspace, useStandalone);
                 nbFiles = tree.files.length;
                 defaultOptions = {
-                    project: appTest1.name
+                    project: appTest1.name,
                 } as NgAddOptions;
                 project = await getProjectFromWorkspace(tree, defaultOptions.project);
             });
@@ -42,18 +43,18 @@ const jac = jasmine.arrayContaining;
                                 build: joc({
                                     options: joc({
                                         assets: jac([
-                                            'src/manifest.webmanifest'
-                                        ])
+                                            'src/manifest.webmanifest',
+                                        ]),
                                     }),
                                     configurations: joc({
                                         production: joc({
-                                            serviceWorker: 'ngsw-config.json'
-                                        })
-                                    })
-                                })
-                            })
-                        })
-                    })
+                                            serviceWorker: 'ngsw-config.json',
+                                        }),
+                                    }),
+                                }),
+                            }),
+                        }),
+                    }),
                 }));
             });
 
@@ -61,7 +62,7 @@ const jac = jasmine.arrayContaining;
                 await callRule(modifyJsonFile('angular.json', ['projects', appTest1.name, 'architect', 'build', 'builder'], Builders.Browser), tree);
                 await callRule(modifyJsonFile('angular.json',
                     ['projects', appTest1.name, 'architect', 'build', 'options', 'main'],
-                    project.targets.get('build')?.options?.['browser']
+                    project.targets.get('build')?.options?.['browser'],
                 ), tree);
                 await runner.runSchematic('ng-add', defaultOptions, tree);
                 expect(tree.readJson('angular.json')).toEqual(joc({
@@ -73,13 +74,13 @@ const jac = jasmine.arrayContaining;
                                         serviceWorker: true,
                                         ngswConfigPath: 'ngsw-config.json',
                                         assets: jac([
-                                            'src/manifest.webmanifest'
-                                        ])
-                                    })
-                                })
-                            })
-                        })
-                    })
+                                            'src/manifest.webmanifest',
+                                        ]),
+                                    }),
+                                }),
+                            }),
+                        }),
+                    }),
                 }));
             });
 
@@ -87,7 +88,7 @@ const jac = jasmine.arrayContaining;
                 it('should update app-config.ts', async () => {
                     await runner.runSchematic('ng-add', defaultOptions, tree);
                     const configTsContent = tree.readContent(project.mainConfigFilePath!);
-                    expect(configTsContent).toMatch(/import { ApplicationConfig, .*, provideZoneChangeDetection, isDevMode } from '@angular\/core';/);
+                    expect(configTsContent).toMatch(/import { ApplicationConfig, .*, isDevMode } from '@angular\/core';/);
                     expect(configTsContent).toContain('import { provideAppUpdater } from \'@hug/ngx-app-updater\';');
                     expect(configTsContent).toContain('provideAppUpdater({\n' +
                     '      enabled: !isDevMode()\n' +
@@ -97,7 +98,7 @@ const jac = jasmine.arrayContaining;
                 it('should update app-config.ts (with disableClose)', async () => {
                     await runner.runSchematic('ng-add', { ...defaultOptions, disableClose: true }, tree);
                     const configTsContent = tree.readContent(project.mainConfigFilePath!);
-                    expect(configTsContent).toMatch(/import { ApplicationConfig, .*, provideZoneChangeDetection, isDevMode } from '@angular\/core';/);
+                    expect(configTsContent).toMatch(/import { ApplicationConfig, .*, isDevMode } from '@angular\/core';/);
                     expect(configTsContent).toContain('import { provideAppUpdater } from \'@hug/ngx-app-updater\';');
                     expect(configTsContent).toContain('provideAppUpdater({\n' +
                     '      enabled: !isDevMode(),\n' +

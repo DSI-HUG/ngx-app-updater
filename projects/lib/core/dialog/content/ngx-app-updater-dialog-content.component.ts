@@ -8,7 +8,7 @@ import { NgxAppUpdaterDialogRef } from '../ngx-app-updater-dialog-ref';
     templateUrl: './ngx-app-updater-dialog-content.component.html',
     styleUrls: ['./ngx-app-updater-dialog-content.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
-    encapsulation: ViewEncapsulation.None
+    encapsulation: ViewEncapsulation.None,
 })
 export class NgxAppUpdaterDialogContentComponent {
     public dialogRef = inject(NgxAppUpdaterDialogRef);

@@ -1,5 +1,6 @@
-import { NgClass, NgTemplateOutlet } from '@angular/common';
-import { Component, inject, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
+/* eslint-disable @typescript-eslint/naming-convention */
+import { NgTemplateOutlet } from '@angular/common';
+import { Component, inject, type OnDestroy, type OnInit, ViewEncapsulation } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Router, RouterModule } from '@angular/router';
 import { NgxAppUpdaterService } from '@hug/ngx-app-updater';
@@ -12,13 +13,13 @@ import { NOT_FOUND_ICON } from './ngx-app-updater-not-found.icons';
     templateUrl: './ngx-app-updater-not-found.page.html',
     styleUrls: ['./ngx-app-updater-not-found.page.scss'],
     encapsulation: ViewEncapsulation.None,
-    imports: [NgTemplateOutlet, NgClass, RouterModule]
+    imports: [NgTemplateOutlet, RouterModule],
 })
 export class NgxAppUpdaterNotFoundPage implements OnInit, OnDestroy {
     public NOT_FOUND_ICON = inject(DomSanitizer).bypassSecurityTrustHtml(NOT_FOUND_ICON);
 
     public appUpdaterService = inject(NgxAppUpdaterService);
-    public options = this.appUpdaterService.options?.notFoundOptions;
+    public options = this.appUpdaterService.options.notFoundOptions;
     public updateAvailable = false;
     public checkingUpdate = true;
 
@@ -37,7 +38,9 @@ export class NgxAppUpdaterNotFoundPage implements OnInit, OnDestroy {
             });
 
         // Force the progress spinner to timeout after 6 seconds
-        setTimeout(() => this.checkingUpdate = false, 6000);
+        setTimeout(() => {
+            this.checkingUpdate = false;
+        }, 6000);
     }
 
     public async goBackHome(): Promise<void> {

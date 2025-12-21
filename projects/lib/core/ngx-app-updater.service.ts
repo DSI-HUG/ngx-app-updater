@@ -7,7 +7,7 @@ import type { NgxAppUpdaterOptions } from './models/ngx-app-updater-options.mode
 import { NGX_APP_UPDATER_OPTIONS } from './ngx-app-updater';
 
 @Injectable({
-    providedIn: 'root'
+    providedIn: 'root',
 })
 export class NgxAppUpdaterService implements OnDestroy {
     public canApplyUpdate = true;
@@ -108,15 +108,15 @@ export class NgxAppUpdaterService implements OnDestroy {
                             }
                             return take;
                         }),
-                        map(() => true)
+                        map(() => true),
                     );
                 }
                 return of(false);
             }),
             repeat({ delay: (this.options.checkInterval) ? this.options.checkInterval : 0 }),
             takeWhile(updateAvailable =>
-                (this.options.checkInterval !== false) || ((this.options.promptInterval !== false) && updateAvailable)
-            )
+                (this.options.checkInterval !== false) || ((this.options.promptInterval !== false) && updateAvailable),
+            ),
         );
     }
 
@@ -146,7 +146,7 @@ export class NgxAppUpdaterService implements OnDestroy {
                         default:
                             break;
                     }
-                })
+                }),
             );
 
             // Listen for unrecoverable events
@@ -154,7 +154,7 @@ export class NgxAppUpdaterService implements OnDestroy {
                 this.swUpdate.unrecoverable.subscribe(() => {
                     console.error('[ngx-app-updater] App is in unrecoverable state: reloading to avoid chunk load issues...');
                     this.applyUpdate();
-                })
+                }),
             );
 
             // Check for update
@@ -162,8 +162,8 @@ export class NgxAppUpdaterService implements OnDestroy {
                 this.checkForUpdate$().subscribe({
                     complete: () => {
                         this.verbose('Service stopped');
-                    }
-                })
+                    },
+                }),
             );
         } else {
             this.verbose('Service is not enabled');

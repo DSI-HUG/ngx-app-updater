@@ -55,7 +55,7 @@ const logHeader = str => {
 
 const spawnCmd = (cmd, args, verbose = true, exitOnError = true) => {
     const ret = spawnSync(cmd, args, {
-        stdio: verbose ? 'inherit' : 'pipe'
+        stdio: verbose ? 'inherit' : 'pipe',
     });
     if (exitOnError && (ret.status !== 0)) {
         process.exit(1);
