@@ -4,7 +4,7 @@ import type { Rule, SchematicContext, Tree } from '@angular-devkit/schematics';
 import { SchematicTestRunner, type UnitTestTree } from '@angular-devkit/schematics/testing';
 import { type Schema as ApplicationOptions, Style } from '@schematics/angular/application/schema';
 import type { Schema as WorkspaceOptions } from '@schematics/angular/workspace/schema';
-import { join } from 'path';
+import { join } from 'node:path';
 import { lastValueFrom } from 'rxjs';
 
 export const workspaceOptions: WorkspaceOptions = {
@@ -47,8 +47,8 @@ export const collectionPath = join(__dirname, './collection.json');
 
 export const runner = new SchematicTestRunner('ngx-app-updater', collectionPath);
 
-export const callRule = (rule: Rule, tree: Tree, parentContext?: Partial<SchematicContext>): Promise<Tree | undefined> =>
-    lastValueFrom(runner.callRule(rule, tree, parentContext));
+export const callRule = (rule$: Rule, tree: Tree, parentContext?: Partial<SchematicContext>): Promise<Tree | undefined> =>
+    lastValueFrom(runner.callRule(rule$, tree, parentContext));
 
 export const getCleanAppTree = async (useWorkspace = false, standalone = false): Promise<UnitTestTree> => {
     appTest1.projectRoot = (useWorkspace) ? join(workspaceOptions.newProjectRoot!, appTest1.name) : '';

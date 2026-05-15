@@ -15,10 +15,10 @@ export const provideLib = ({ tree, project }: ChainableApplicationContext, optio
     // Provide library
     let opts = 'enabled: !isDevMode()';
     if (options.disableClose) {
-        opts += ',\n' +
-            'dialogOptions: {\n' +
-            '  disableClose: true\n' +
-            '}\n';
+        opts += ',\n'
+          + 'dialogOptions: {\n'
+          + '  disableClose: true\n'
+          + '}\n';
     }
 
     if (project.isStandalone) {

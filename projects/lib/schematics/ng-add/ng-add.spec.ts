@@ -90,9 +90,9 @@ const jac = jasmine.arrayContaining;
                     const configTsContent = tree.readContent(project.mainConfigFilePath!);
                     expect(configTsContent).toMatch(/import { ApplicationConfig, .*, isDevMode } from '@angular\/core';/);
                     expect(configTsContent).toContain('import { provideAppUpdater } from \'@hug/ngx-app-updater\';');
-                    expect(configTsContent).toContain('provideAppUpdater({\n' +
-                    '      enabled: !isDevMode()\n' +
-                    '    })');
+                    expect(configTsContent).toContain('provideAppUpdater({\n'
+                      + '      enabled: !isDevMode()\n'
+                      + '    })');
                 });
 
                 it('should update app-config.ts (with disableClose)', async () => {
@@ -100,12 +100,12 @@ const jac = jasmine.arrayContaining;
                     const configTsContent = tree.readContent(project.mainConfigFilePath!);
                     expect(configTsContent).toMatch(/import { ApplicationConfig, .*, isDevMode } from '@angular\/core';/);
                     expect(configTsContent).toContain('import { provideAppUpdater } from \'@hug/ngx-app-updater\';');
-                    expect(configTsContent).toContain('provideAppUpdater({\n' +
-                    '      enabled: !isDevMode(),\n' +
-                    '      dialogOptions: {\n' +
-                    '        disableClose: true\n' +
-                    '      }\n' +
-                    '    })');
+                    expect(configTsContent).toContain('provideAppUpdater({\n'
+                      + '      enabled: !isDevMode(),\n'
+                      + '      dialogOptions: {\n'
+                      + '        disableClose: true\n'
+                      + '      }\n'
+                      + '    })');
                 });
             }
 
@@ -115,15 +115,15 @@ const jac = jasmine.arrayContaining;
                 if (useStandalone) {
                     expect(mainTsContent).not.toContain('import { NgModule, isDevMode } from \'@angular/core\';');
                     expect(mainTsContent).not.toContain('import { NgxAppUpdaterModule } from \'@hug/ngx-app-updater\';');
-                    expect(mainTsContent).not.toContain('NgxAppUpdaterModule.forRoot({\n' +
-                    '      enabled: !isDevMode()\n' +
-                    '    })');
+                    expect(mainTsContent).not.toContain('NgxAppUpdaterModule.forRoot({\n'
+                      + '      enabled: !isDevMode()\n'
+                      + '    })');
                 } else {
                     expect(mainTsContent).toMatch(/import { NgModule, .*, isDevMode } from '@angular\/core';/);
                     expect(mainTsContent).toContain('import { NgxAppUpdaterModule } from \'@hug/ngx-app-updater\';');
-                    expect(mainTsContent).toContain('NgxAppUpdaterModule.forRoot({\n' +
-                    '      enabled: !isDevMode()\n' +
-                    '    })');
+                    expect(mainTsContent).toContain('NgxAppUpdaterModule.forRoot({\n'
+                      + '      enabled: !isDevMode()\n'
+                      + '    })');
                 }
             });
 
@@ -133,12 +133,12 @@ const jac = jasmine.arrayContaining;
                     const mainTsContent = tree.readContent(project.pathFromSourceRoot('app/app-module.ts'));
                     expect(mainTsContent).toMatch(/import { NgModule, .*, isDevMode } from '@angular\/core';/);
                     expect(mainTsContent).toContain('import { NgxAppUpdaterModule } from \'@hug/ngx-app-updater\';');
-                    expect(mainTsContent).toContain('NgxAppUpdaterModule.forRoot({\n' +
-                        '      enabled: !isDevMode(),\n' +
-                        '      dialogOptions: {\n' +
-                        '        disableClose: true\n' +
-                        '      }\n' +
-                        '    })');
+                    expect(mainTsContent).toContain('NgxAppUpdaterModule.forRoot({\n'
+                      + '      enabled: !isDevMode(),\n'
+                      + '      dialogOptions: {\n'
+                      + '        disableClose: true\n'
+                      + '      }\n'
+                      + '    })');
                 });
             }
         });
