@@ -1,33 +1,9 @@
 {
-    "extends": "./tsconfig.hug.json",
-    "compileOnSave": false,
-    "compilerOptions": {
-        "baseUrl": "./",
-        "outDir": "./dist/out-tsc",
-        "forceConsistentCasingInFileNames": true,
-        "strict": true,
-        "noImplicitOverride": true,
-        "noPropertyAccessFromIndexSignature": true,
-        "paths": {
-            "@hug/ngx-app-updater": ["projects/lib/core"],
-            "@hug/ngx-app-updater/*": ["projects/lib/*"]
-        },
-        "noImplicitReturns": true,
-        "noFallthroughCasesInSwitch": true,
-        "sourceMap": true,
-        "declaration": false,
-        "esModuleInterop": true,
-        "experimentalDecorators": true,
-        "moduleResolution": "bundler",
-        "importHelpers": true,
-        "target": "ES2022",
-        "module": "ES2022",
-        "useDefineForClassFields": false
-    },
-    "angularCompilerOptions": {
-        "enableI18nLegacyMessageIdFormat": false,
-        "strictInjectionParameters": true,
-        "strictInputAccessModifiers": true,
-        "strictTemplates": true
-    }
+    "files": [],
+    "include": [],
+    "references": [
+        {
+            "path": "./projects/lib"
+        }
+    ]
 }

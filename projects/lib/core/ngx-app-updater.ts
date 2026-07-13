@@ -5,7 +5,6 @@ import { NgxAppUpdaterDialogService } from './dialog';
 import type { NgxAppUpdaterOptions } from './models/ngx-app-updater-options.model';
 import { NgxAppUpdaterService } from './ngx-app-updater.service';
 
-
 export const NGX_APP_UPDATER_OPTIONS = new InjectionToken<NgxAppUpdaterOptions>('NGX_APP_UPDATER_OPTIONS');
 
 export const NGX_APP_UPDATER_PROVIDERS = (options?: NgxAppUpdaterOptions): (Provider | EnvironmentProviders)[] => [

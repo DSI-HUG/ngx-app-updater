@@ -24,12 +24,10 @@
     "sideEffects": false,
     "scripts": {
         "start": "node ./make.mjs watch",
-        "lint": "node ./make.mjs lint",
-        "test:lib": "node ./make.mjs test-lib",
-        "test:schematics": "node ./make.mjs test-schematics",
-        "test:ci": "node ./make.mjs test-ci",
+        "lint": "eslint .",
+        "test": "vitest --passWithNoTests",
+        "test:ci": "vitest run --passWithNoTests",
         "build": "node ./make.mjs build",
-        "build:global": "node ./make.mjs build-global",
         "release": "npm publish ../../dist --access=public --workspaces=false"
     },
     "peerDependencies": {

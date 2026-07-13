@@ -1,11 +1,11 @@
 /**
- * Usage: $ node ./make.mjs <watch|lint|test-lib|test-schematics|test-ci|build|build-global>
+ * Usage: $ node ./make.mjs <watch|build>
  */
 
 import { watch as chokidarWatch } from 'chokidar';
 import cpy from 'cpy';
 import crossSpawn from 'cross-spawn';
-import { existsSync, mkdirSync, readFileSync, rmSync } from 'node:fs';
+import { existsSync, mkdirSync, rmSync } from 'node:fs';
 import { dirname, resolve as pathResolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { styleText } from 'node:util';
@@ -38,6 +38,7 @@ const copySchematicsAssets = async () => {
     await cpy(`${SCHEMATICS_SRC_PATH}/*/schema.json`, `${DIST_PATH}/schematics`);
     await cpy(`${SCHEMATICS_SRC_PATH}/migration.json`, `${DIST_PATH}/schematics`, { flat: true });
     await cpy(`${SCHEMATICS_SRC_PATH}/collection.json`, `${DIST_PATH}/schematics`, { flat: true });
+    await cpy(`${SCHEMATICS_SRC_PATH}/package.json`, `${DIST_PATH}/schematics`, { flat: true });
 };
 
 let chokidarWatcher;
@@ -53,26 +54,30 @@ const spawnCmd = (cmd, args, verbose = true, exitOnError = true) => {
     const ret = spawnSync(cmd, args, {
         stdio: verbose ? 'inherit' : 'pipe',
     });
-    if (exitOnError && (ret.status !== 0)) {
+    if (exitOnError && ret.status !== 0) {
         process.exit(1);
     }
 };
 
-const cleanDir = (path, removeFolder = false) => new Promise(resolve => {
-    const exists = existsSync(path);
-    if (exists) {
-        rmSync(path, { recursive: true });
-    }
-    if (!removeFolder) {
-        // Give time to rmSync to unlock the file on Windows
-        setTimeout(() => {
-            mkdirSync(path, { recursive: true });
+const cleanDir = (path, removeFolder = false) =>
+    new Promise(resolve => {
+        const exists = existsSync(path);
+        if (exists) {
+            rmSync(path, { recursive: true });
+        }
+        if (!removeFolder) {
+            // Give time to rmSync to unlock the file on Windows
+            setTimeout(
+                () => {
+                    mkdirSync(path, { recursive: true });
+                    resolve();
+                },
+                exists ? 1000 : 0,
+            );
+        } else {
             resolve();
-        }, exists ? 1000 : 0);
-    } else {
-        resolve();
-    }
-});
+        }
+    });
 
 const cleanUp = async () => {
     if (chokidarWatcher) {
@@ -95,23 +100,11 @@ const registerExitEvents = () => {
     process.on('uncaughtException', cleanUp);
 };
 
-const packDistAndInstallGlobally = async () => {
-    log('> Packing..');
-    spawnCmd('npm', ['pack', DIST_PATH, '--pack-destination', DIST_PATH]);
-
-    log('> Installing globally..');
-    const distPkgJson = JSON.parse(readFileSync(`${DIST_PATH}/package.json`));
-    const libName = distPkgJson.name.replace('@', '').replace('/', '-');
-    const filePath = `${DIST_PATH}/${libName}-${distPkgJson.version}.tgz`;
-    spawnCmd('npm', ['install', '--global', filePath]);
-    rmSync(filePath);
-};
-
 const buildSchematics = async (exitOnError = true) => {
     if (existsSync(SCHEMATICS_SRC_PATH)) {
-        if (existsSync('tsconfig.schematics.json')) {
+        if (existsSync('./schematics/tsconfig.schematics.json')) {
             log('> Building schematics..');
-            spawnCmd('tsc', ['-p', './tsconfig.schematics.json'], true, exitOnError);
+            spawnCmd('tsc', ['-p', './schematics/tsconfig.schematics.prod.json'], true, exitOnError);
         }
         log('> Copying schematics assets..');
         await copySchematicsAssets();
@@ -124,51 +117,21 @@ const buildLib = async (exitOnError = true) => {
         if (LIBRARY_TYPE === 'ng') {
             spawnCmd('ng', ['build', NG_PROJECT_LIBRARY_NAME, '--configuration', 'production'], true, exitOnError);
         } else {
-            spawnCmd('tsc', ['-p', './tsconfig.prod.json'], true, exitOnError);
+            spawnCmd('tsc', ['-p', './tsconfig.lib.prod.json'], true, exitOnError);
         }
     }
 
     log('> Copying assets..');
     await copyAssets();
-};
 
-const test = (tsconfigPath, ci = false) => {
-    if (existsSync(tsconfigPath)) {
-        const args = [`--project=${tsconfigPath}`, '../../node_modules/jasmine/bin/jasmine.js', '--config=jasmine.json'];
-        if (!ci) {
-            args.unshift('--respawn', '--transpile-only');
-        }
-        spawnCmd('ts-node-dev', args);
-    }
-};
-
-const testSchematics = (ci = false) => {
-    if (existsSync(SCHEMATICS_SRC_PATH)) {
-        test('tsconfig.schematics.json', ci);
-    }
-};
-
-const testLib = (ci = false) => {
-    if (existsSync(LIBRARY_SRC_PATH)) {
-        if (LIBRARY_TYPE === 'ng') {
-            const ligArgs = ['test', 'lib'];
-            if (ci) {
-                ligArgs.push('--configuration', 'ci');
-            }
-            spawnCmd('ng', ligArgs);
-        } else {
-            test('tsconfig.spec.json', ci);
-        }
-    }
-};
-
-const lint = () => {
-    const lintArgs = [`./${LIBRARY_SRC}/**/*.{ts,html}`];
-    if (existsSync(SCHEMATICS_SRC_PATH)) {
-        lintArgs.push(`./${SCHEMATICS_SRC}/**/*.{ts,html}`);
-    }
-    lintArgs.push('--ignore-pattern', '**/files/**/*', '--ignore-pattern', '**/*.spec.ts');
-    spawnCmd('eslint', lintArgs);
+    /**
+     * Angular 14 use a version of Webpack that does not fully support the 'exports' field in package.json.
+     * It will find the 'type:module' field and thus try to load the 'module' field from the 'exports' which does not exists.
+     * But 'ng-packagr' is already generating sub package.json's for each entry points (only it is for development and not for production).
+     * So as a workaround we simply remove the '.npmignore' file and takes advantage of the sub package.json's generated by 'ng-packagr'.
+     */
+    log('> Removing .npmignore from dist..');
+    rmSync(`${DIST_PATH}/.npmignore`, { force: true });
 };
 
 const watch = async () => {
@@ -194,19 +157,6 @@ const watch = async () => {
                 registerExitEvents();
                 await watch();
                 break;
-            case 'lint':
-                lint();
-                break;
-            case 'test-lib':
-                testLib();
-                break;
-            case 'test-schematics':
-                testSchematics();
-                break;
-            case 'test-ci':
-                testLib(true);
-                testSchematics(true);
-                break;
             case 'build':
                 log('> Cleaning..');
                 await cleanDir(DIST_PATH);
@@ -214,15 +164,8 @@ const watch = async () => {
                 await buildSchematics();
                 log(`> ${styleText('green', 'Done!')}\n`);
                 break;
-            case 'build-global':
-                log('> Cleaning..');
-                await cleanDir(DIST_PATH);
-                await buildLib();
-                await buildSchematics();
-                await packDistAndInstallGlobally();
-                log(`> ${styleText('green', 'Done!')}\n`);
+            default:
                 break;
-            default: break;
         }
     } catch (err) {
         console.error(err);

@@ -4,11 +4,8 @@ import type { UnitTestTree } from '@angular-devkit/schematics/testing';
 import { type ApplicationDefinition, getProjectFromWorkspace, modifyJsonFile } from '@hug/ngx-schematics-utilities';
 import { Builders } from '@schematics/angular/utility/workspace-models';
 
-import { appTest1, callRule, getCleanAppTree, runner } from '../schematics.spec';
+import { appTest1, callRule, getCleanAppTree, runner } from '../utils.spec';
 import type { NgAddOptions } from './ng-add-options';
-
-const joc = jasmine.objectContaining;
-const jac = jasmine.arrayContaining;
 
 [false, true].forEach(useStandalone => {
     [false, true].forEach(useWorkspace => {
@@ -29,25 +26,26 @@ const jac = jasmine.arrayContaining;
 
             it('should run without issues', async () => {
                 const test$ = runner.runSchematic('ng-add', defaultOptions, tree);
-                await expectAsync(test$).toBeResolved();
+                await test$;
                 expect(tree.files.length).toEqual(nbFiles + 4 + 4);
             });
 
             it('should update angular.json (application builder)', async () => {
                 await callRule(modifyJsonFile('angular.json', ['projects', appTest1.name, 'architect', 'build', 'builder'], Builders.Application), tree);
                 await runner.runSchematic('ng-add', defaultOptions, tree);
-                expect(tree.readJson('angular.json')).toEqual(joc({
-                    projects: joc({
-                        [appTest1.name]: joc({
-                            architect: joc({
-                                build: joc({
-                                    options: joc({
-                                        assets: jac([
+                expect(tree.readJson('angular.json')).toEqual(expect.objectContaining({
+                    /* eslint-disable @typescript-eslint/no-unsafe-assignment */
+                    projects: expect.objectContaining({
+                        [appTest1.name]: expect.objectContaining({
+                            architect: expect.objectContaining({
+                                build: expect.objectContaining({
+                                    options: expect.objectContaining({
+                                        assets: expect.arrayContaining([
                                             'src/manifest.webmanifest',
                                         ]),
                                     }),
-                                    configurations: joc({
-                                        production: joc({
+                                    configurations: expect.objectContaining({
+                                        production: expect.objectContaining({
                                             serviceWorker: 'ngsw-config.json',
                                         }),
                                     }),
@@ -55,6 +53,7 @@ const jac = jasmine.arrayContaining;
                             }),
                         }),
                     }),
+                    /* eslint-enable @typescript-eslint/no-unsafe-assignment */
                 }));
             });
 
@@ -65,15 +64,16 @@ const jac = jasmine.arrayContaining;
                     project.targets.get('build')?.options?.['browser'],
                 ), tree);
                 await runner.runSchematic('ng-add', defaultOptions, tree);
-                expect(tree.readJson('angular.json')).toEqual(joc({
-                    projects: joc({
-                        [appTest1.name]: joc({
-                            architect: joc({
-                                build: joc({
-                                    options: joc({
+                expect(tree.readJson('angular.json')).toEqual(expect.objectContaining({
+                    /* eslint-disable @typescript-eslint/no-unsafe-assignment */
+                    projects: expect.objectContaining({
+                        [appTest1.name]: expect.objectContaining({
+                            architect: expect.objectContaining({
+                                build: expect.objectContaining({
+                                    options: expect.objectContaining({
                                         serviceWorker: true,
                                         ngswConfigPath: 'ngsw-config.json',
-                                        assets: jac([
+                                        assets: expect.arrayContaining([
                                             'src/manifest.webmanifest',
                                         ]),
                                     }),
@@ -81,6 +81,7 @@ const jac = jasmine.arrayContaining;
                             }),
                         }),
                     }),
+                    /* eslint-enable @typescript-eslint/no-unsafe-assignment */
                 }));
             });
 
